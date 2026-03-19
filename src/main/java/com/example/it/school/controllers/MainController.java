@@ -1,8 +1,7 @@
-package com.example.it.school.controller;
+package com.example.it.school.controllers;
 
 import com.example.it.school.entity.Cat;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

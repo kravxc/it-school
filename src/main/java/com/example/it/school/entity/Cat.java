@@ -2,8 +2,7 @@ package com.example.it.school.entity;
 
 import lombok.*;
 
-@Getter
-@Setter
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
