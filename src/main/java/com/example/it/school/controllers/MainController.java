@@ -1,6 +1,7 @@
 package com.example.it.school.controllers;
 
 import com.example.it.school.entity.Cat;
+import com.example.it.school.services.AuthService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +12,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class MainController {
 
+    public final AuthService authService;
+
+    public MainController(AuthService authService){
+        this.authService = authService;
+    }
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    @GetMapping("/api/auth")
+    public String auth(){
+        return authService.auth();
+    }
 
     @GetMapping("/api/main")
     public String mainListener(){

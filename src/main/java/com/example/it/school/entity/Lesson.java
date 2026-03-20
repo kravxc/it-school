@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,5 +40,13 @@ public class Lesson {
 
     @OneToMany(mappedBy = "lesson")
     private List<AdditionalMaterial> additionalMaterials;
+
+    @ManyToMany
+    @JoinTable(
+            name = "lesson_files",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "file_id")
+    )
+    private List<File> files = new ArrayList<>();
 
 }
