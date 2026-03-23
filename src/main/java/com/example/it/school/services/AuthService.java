@@ -5,6 +5,7 @@ import com.example.it.school.dto.auth.SignupRequest;
 import com.example.it.school.dto.auth.SignupResponse;
 import com.example.it.school.entity.Role;
 import com.example.it.school.entity.User;
+import com.example.it.school.exception.ResourceNotFoundException;
 import com.example.it.school.repository.RoleRepository;
 import com.example.it.school.repository.UserRepository;
 import com.example.it.school.security.JwtService;
@@ -43,16 +44,13 @@ public class AuthService {
 
         if (!ALLOWED_ROLES.contains(roleName)) {
             log.warn("Invalid role: {}, defaulting to student", roleName);
-            roleName = "student";
+            throw new RuntimeException("Invalid role: " + roleName +". Allowed roles " + ALLOWED_ROLES);
         }
 
         log.info("Looking for role: {}", roleName);
 
         Role role = roleRepository.findByName(roleName)
-                .orElseThrow(() -> {
-                    log.error("Role not found: {}. Please make sure roles exist in database.", roleName);
-                    return new RuntimeException("Role not found: " + roleName);
-                });
+                .orElseThrow(() -> new ResourceNotFoundException("Role", "name", roleName));
 
         log.info("Role found: {} with ID: {}", role.getName(), role.getId());
 

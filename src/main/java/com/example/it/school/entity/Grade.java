@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,15 +22,22 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(name = "display_name", nullable = false)
     private String displayName;
 
     @OneToMany(mappedBy = "grade")
-    private List<User> users;
+    @Builder.Default
+    private List<User> users = new ArrayList<>();
 
-    @Column(name = "created_at")
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Topic> topics = new ArrayList<>();
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
 }

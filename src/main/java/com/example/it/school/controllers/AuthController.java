@@ -22,7 +22,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<SignupResponse> signup(@Valid @RequestBody SignupRequest request){
-        log.info("POST /api/auth/register - email: {}", request.getEmail());
+        log.info("POST /api/auth/signup - email: {}", request.getEmail());
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.signup(request));
     }
 
