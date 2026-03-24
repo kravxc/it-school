@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,25 +23,34 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(length = 1000)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topic_id", nullable = false)
     private Topic topic;
 
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "lesson")
-    private List<Task> tasks;
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "lesson")
-    private List<LessonFile> lessonFiles;
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Task> tasks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "lesson")
-    private List<AdditionalMaterial> additionalMaterials;
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<LessonFile> lessonFiles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
+    private List<AdditionalMaterial> additionalMaterials = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -47,6 +58,6 @@ public class Lesson {
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "file_id")
     )
+    @Builder.Default
     private List<File> files = new ArrayList<>();
-
 }
