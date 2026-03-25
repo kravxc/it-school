@@ -133,8 +133,10 @@ public class LessonService {
                 .topicTitle(topic.getTitle())
                 .gradeId(topic.getGrade().getId())
                 .gradeName(topic.getGrade().getName())
+                .gradeDisplayName(topic.getGrade().getDisplayName())
                 .tasksCount(lesson.getTasks() != null ? lesson.getTasks().size() : 0)
                 .filesCount(lesson.getFiles() != null ? lesson.getFiles().size() : 0)
+                .updatedAt(lesson.getUpdatedAt())
                 .createdAt(lesson.getCreatedAt())
                 .build();
     }

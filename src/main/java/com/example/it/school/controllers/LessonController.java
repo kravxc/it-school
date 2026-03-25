@@ -24,6 +24,14 @@ import java.util.List;
 public class LessonController {
     private final LessonService lessonService;
 
+    @GetMapping
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<LessonResponse>> getAllLessons(){
+        log.info("GET /api/lessons = get all lessons");
+        return ResponseEntity.ok(lessonService.getAllLessons());
+
+    }
+
     @PostMapping
     @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<LessonResponse> createLesson(@Valid @RequestBody LessonRequest request){

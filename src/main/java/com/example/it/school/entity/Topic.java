@@ -46,6 +46,10 @@ public class Topic {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @PreUpdate
+    protected void onUpdate(){
+        updatedAt = LocalDateTime.now();
+    }
 
 
 

@@ -21,8 +21,10 @@ public class LessonResponse {
     private String topicTitle;
     private Long gradeId;
     private String gradeName;
+    private String gradeDisplayName;
     private List<Task> tasks;
     private Integer tasksCount;
     private Integer filesCount;
+    private LocalDateTime updatedAt;
     private LocalDateTime createdAt;
 }

@@ -41,6 +41,11 @@ public class Lesson {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @PreUpdate
+    protected void onUpdate(){
+        updatedAt = LocalDateTime.now();
+    }
+
     @OneToMany(mappedBy = "lesson", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Task> tasks = new ArrayList<>();

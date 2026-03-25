@@ -1,4 +1,4 @@
-package com.example.it.school.dto.topic;
+package com.example.it.school.dto.task;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,20 +7,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Optional;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TopicRequest {
-
+public class TaskRequest {
     @NotBlank(message = "Title is required")
     private String title;
 
     private String description;
 
-    @NotNull(message = "Grade ID is required")
-    private Long gradeId;
+    @NotBlank(message = "Content is required")
+    private String content;
 
+    private String difficulty;
+
+    @NotNull(message = "Topic id is required")
+    private Long lessonId;
 }
