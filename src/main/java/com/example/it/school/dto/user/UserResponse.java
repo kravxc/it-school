@@ -1,4 +1,4 @@
-package com.example.it.school.dto.task;
+package com.example.it.school.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,13 +11,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskResponse {
+public class UserResponse {
     private Long id;
-    private String title;
-    private String description;
-    private String content;
-    private String difficulty;
-    private Long lessonId;
+    private String name;
+    private String gradeName;
+    private String email;
+    private String role;
+    private Long gradeId;
+    private String gradeDisplayName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

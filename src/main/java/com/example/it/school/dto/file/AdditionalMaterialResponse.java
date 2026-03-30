@@ -1,5 +1,6 @@
-package com.example.it.school.dto.task;
+package com.example.it.school.dto.file;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,13 +12,14 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskResponse {
+public class AdditionalMaterialResponse {
     private Long id;
     private String title;
     private String description;
-    private String content;
-    private String difficulty;
+    private String link;
+    private String type;
     private Long lessonId;
+    private Long fileId;
+    private String fileName;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

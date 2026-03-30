@@ -1,5 +1,6 @@
 package com.example.it.school.security;
 
+import com.example.it.school.entity.User;
 import com.example.it.school.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,5 +22,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
+    }
+    public User getUserFromUserDetails(UserDetails userDetails){
+        return userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

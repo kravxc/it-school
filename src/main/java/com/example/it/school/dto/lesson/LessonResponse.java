@@ -1,5 +1,6 @@
 package com.example.it.school.dto.lesson;
 
+import com.example.it.school.dto.task.TaskResponse;
 import com.example.it.school.entity.Task;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class LessonResponse {
     private Long gradeId;
     private String gradeName;
     private String gradeDisplayName;
-    private List<Task> tasks;
+    private List<TaskResponse> tasks;
     private Integer tasksCount;
     private Integer filesCount;
     private LocalDateTime updatedAt;

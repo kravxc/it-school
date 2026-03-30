@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -121,6 +122,27 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
+    public List<TaskResponse> searchTasksInLesson(String keyword, Long lessonId){
+        log.info("Searching tasks by lesson id with keyword: {}", keyword);
+
+        if (!lessonRepository.existsById(lessonId)){
+            throw new ResourceNotFoundException("Lesson", "id", lessonId);
+        }
+
+        List<Task> results = new ArrayList<>();
+
+        results.addAll(taskRepository.findByLessonIdAndTitleContainingIgnoreCase(lessonId, keyword));
+        results.addAll(taskRepository.findByLessonIdAndDescriptionContainingIgnoreCase(lessonId, keyword));
+        results.addAll(taskRepository.findByLessonIdAndContentContainingIgnoreCase(lessonId, keyword));
+
+        List<Task> uniqueResults = results.stream()
+                .distinct()
+                .toList();
+
+        return uniqueResults.stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
 
     private TaskResponse mapToResponse(Task task){
 
@@ -130,6 +152,7 @@ public class TaskService {
                 .description(task.getDescription())
                 .content(task.getContent())
                 .difficulty(task.getDifficulty())
+                .lessonId(task.getLesson().getId())
                 .createdAt(task.getCreatedAt())
                 .updatedAt(task.getUpdatedAt())
                 .build();

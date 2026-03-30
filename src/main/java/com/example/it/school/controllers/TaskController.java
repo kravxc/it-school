@@ -22,7 +22,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('admin')")
+    @PreAuthorize("hasAnyRole('admin', 'teacher')")
     public ResponseEntity<TaskResponse> createTask(@Valid @RequestBody TaskRequest request){
         log.info("POST /api/tasks - create task: {}", request.getTitle());
         TaskResponse response = taskService.createTask(request);
@@ -66,5 +66,14 @@ public class TaskController {
     public ResponseEntity<List<TaskResponse>> searchTasks(@RequestParam String keyword){
         log.info("GET /api/tasks/search - search tasks with keyword: {}", keyword);
         return ResponseEntity.ok(taskService.searchTasks(keyword));
+    }
+
+    @GetMapping("/search/lesson/{lessonId}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<TaskResponse>> searchTasksByLessonId(
+            @RequestParam String keyword,
+            @PathVariable Long lessonId){
+        log.info("GET /api/tasks/search/lesson/{} - search task by lesson id with keyword: {}", lessonId, keyword);
+        return ResponseEntity.ok(taskService.searchTasksInLesson(keyword, lessonId));
     }
 }

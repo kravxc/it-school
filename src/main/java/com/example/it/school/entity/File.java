@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class File {
     private String name;
 
     @Column(columnDefinition = "TEXT")
-    private String original_name;
+    private String originalName;
 
     private String path;
 
@@ -37,9 +39,6 @@ public class File {
 
     private String extension;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
     @OneToMany(mappedBy = "file")
     private List<LessonFile> lessonFiles;
 
@@ -48,4 +47,12 @@ public class File {
 
     @ManyToMany(mappedBy = "files")
     private List<Lesson> lessons = new ArrayList<>();
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }

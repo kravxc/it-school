@@ -2,7 +2,9 @@ package com.example.it.school.services;
 
 import com.example.it.school.dto.lesson.LessonRequest;
 import com.example.it.school.dto.lesson.LessonResponse;
+import com.example.it.school.dto.task.TaskResponse;
 import com.example.it.school.entity.Lesson;
+import com.example.it.school.entity.Task;
 import com.example.it.school.entity.Topic;
 import com.example.it.school.exception.ResourceNotFoundException;
 import com.example.it.school.repository.LessonRepository;
@@ -12,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -125,6 +129,12 @@ public class LessonService {
     private LessonResponse mapToResponse(Lesson lesson){
         Topic topic = lesson.getTopic();
 
+        List<TaskResponse> taskResponses = lesson.getTasks() != null
+                ? lesson.getTasks().stream()
+                .map(this::mapTaskToResponse)
+                .collect(Collectors.toList())
+                : Collections.emptyList();
+
         return LessonResponse.builder()
                 .id(lesson.getId())
                 .title(lesson.getTitle())
@@ -134,10 +144,23 @@ public class LessonService {
                 .gradeId(topic.getGrade().getId())
                 .gradeName(topic.getGrade().getName())
                 .gradeDisplayName(topic.getGrade().getDisplayName())
+                .tasks(taskResponses)
                 .tasksCount(lesson.getTasks() != null ? lesson.getTasks().size() : 0)
                 .filesCount(lesson.getFiles() != null ? lesson.getFiles().size() : 0)
                 .updatedAt(lesson.getUpdatedAt())
                 .createdAt(lesson.getCreatedAt())
+                .build();
+    }
+    private TaskResponse mapTaskToResponse(Task task){
+        return TaskResponse.builder()
+                .id(task.getId())
+                .title(task.getTitle())
+                .description(task.getDescription())
+                .content(task.getContent())
+                .difficulty(task.getDifficulty())
+                .lessonId(task.getLesson() != null ? task.getLesson().getId() : null)
+                .createdAt(task.getCreatedAt())
+                .updatedAt(task.getUpdatedAt())
                 .build();
     }
 }
