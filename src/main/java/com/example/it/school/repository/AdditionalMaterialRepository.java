@@ -17,6 +17,8 @@ public interface AdditionalMaterialRepository extends JpaRepository<AdditionalMa
 
     List<AdditionalMaterial> findByLessonIdAndType(Long lessonId, String type);
 
+    void deleteByFileId(Long fileId);
+
     boolean existsByLessonIdAndTitle(Long lessonId, String title);
 
 }

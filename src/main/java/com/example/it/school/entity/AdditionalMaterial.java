@@ -39,6 +39,7 @@ public class AdditionalMaterial {
 
     @ManyToOne
     @JoinColumn(name = "file_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private File file;
 
     @CreationTimestamp

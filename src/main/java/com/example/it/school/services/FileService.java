@@ -3,6 +3,7 @@ package com.example.it.school.services;
 import com.example.it.school.dto.file.FileResponse;
 import com.example.it.school.entity.File;
 import com.example.it.school.exception.ResourceNotFoundException;
+import com.example.it.school.repository.AdditionalMaterialRepository;
 import com.example.it.school.repository.FileRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 public class FileService {
 
     private final FileRepository fileRepository;
+    private final AdditionalMaterialRepository additionalMaterialRepository;
 
     @Value("${file.upload-dir:./uploads}")
     private String uploadDir;
@@ -117,6 +119,8 @@ public class FileService {
         try {
             Path filePath = Paths.get(file.getPath());
             Files.deleteIfExists(filePath);
+
+            additionalMaterialRepository.deleteByFileId(id);
             fileRepository.delete(file);
             log.info("File deleted successfully: {}", file.getOriginalName());
         } catch (IOException e) {

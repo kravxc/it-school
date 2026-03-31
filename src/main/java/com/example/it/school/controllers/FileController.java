@@ -1,6 +1,7 @@
 package com.example.it.school.controllers;
 
 import com.example.it.school.dto.file.FileResponse;
+import com.example.it.school.services.AdditionalMaterialService;
 import com.example.it.school.services.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
