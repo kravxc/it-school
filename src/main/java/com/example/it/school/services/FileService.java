@@ -1,6 +1,7 @@
 package com.example.it.school.services;
 
 import com.example.it.school.dto.file.FileResponse;
+import com.example.it.school.entity.AdditionalMaterial;
 import com.example.it.school.entity.File;
 import com.example.it.school.exception.ResourceNotFoundException;
 import com.example.it.school.repository.AdditionalMaterialRepository;
@@ -120,7 +121,6 @@ public class FileService {
             Path filePath = Paths.get(file.getPath());
             Files.deleteIfExists(filePath);
 
-            additionalMaterialRepository.deleteByFileId(id);
             fileRepository.delete(file);
             log.info("File deleted successfully: {}", file.getOriginalName());
         } catch (IOException e) {
@@ -129,6 +129,24 @@ public class FileService {
         }
     }
 
+    public void detachFileFromAddMaterial(Long fileId){
+        log.info("Detaching file {} from add materials", fileId);
+
+        List<AdditionalMaterial> materials = additionalMaterialRepository.findByFileId(fileId);
+
+        if (materials.isEmpty()){
+            log.warn("No additional materials found with file id {}", fileId);
+            return;
+        }
+
+        for (AdditionalMaterial material : materials){
+            material.setFile(null);
+            additionalMaterialRepository.save(material);
+            log.info("Detached file from additional material: {}", material.getId());
+        }
+
+        log.info("Successfully detached file {} from {} additional materials", fileId, materials.size());
+    }
     private FileResponse mapToResponse(File file) {
 
         return FileResponse.builder()

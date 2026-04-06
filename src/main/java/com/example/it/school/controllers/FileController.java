@@ -68,6 +68,7 @@ public class FileController {
     @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<Void> deleteFile(@PathVariable Long id){
         log.info("DELETE api/files/{} - delete file by id", id);
+        fileService.detachFileFromAddMaterial(id);
         fileService.deleteFile(id);
         return ResponseEntity.noContent().build();
     }
