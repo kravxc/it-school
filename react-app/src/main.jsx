@@ -7,7 +7,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import "./styles/global.css";
 import HomePage from "./pages/HomePage/HomePage";
 import CoursesPage from "./pages/CoursesPage/CoursesPage";
-
+import TopicPage from "./pages/TopicPage/TopicPage";
 const router = createBrowserRouter(
   [
     {
@@ -30,6 +30,10 @@ const router = createBrowserRouter(
           path: "courses",
           element: <CoursesPage />,
         },
+        {
+          path: "topics/:id",
+          element: <TopicPage />
+        }
       ],
     },
   ],

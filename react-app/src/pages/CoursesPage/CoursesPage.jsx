@@ -211,14 +211,6 @@ const CoursesPage = observer(() => {
             </p>
           </div>
         )}
-
-        {(authStore.isTeacher || authStore.isAdmin) && (
-          <div className={styles.createSection}>
-            <Link to="/topics/create" className={styles.createButton}>
-              <i className="fas fa-plus"></i> Создать новую тему
-            </Link>
-          </div>
-        )}
       </div>
     </div>
   );

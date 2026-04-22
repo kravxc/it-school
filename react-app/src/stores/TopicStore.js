@@ -1,7 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import apiClient from "../api/client";
 
-
 class TopicStore {
   topics = [];
   currentTopic = null;
@@ -48,20 +47,26 @@ class TopicStore {
 
     try {
       const response = await apiClient.get(`/topics/${id}`);
+      const data = response.data;
+
+      console.log(data);
 
       runInAction(() => {
-        const index = this.topics.findIndex((t) => t.id === id);
+        const numericId = Number(id);
 
+        const index = this.topics.findIndex((t) => t.id === numericId);
         if (index !== -1) {
-          this.topics[index] = response.data;
+          this.topics[index] = data;
         }
 
-        this.currentTopic = response.data;
+        this.currentTopic = data;
         this.isLoading = false;
         this.error = null;
+
+        console.log(this.currentTopic);
       });
 
-      return { success: true, data: response.data };
+      return { success: true, data };
     } catch (e) {
       let errorMessage = "Ошибка загрузки темы";
 
@@ -84,7 +89,7 @@ class TopicStore {
     this.error = null;
 
     try {
-      const response = apiClient.post("/topics", topicData);
+      const response = await apiClient.post("/topics", topicData);
 
       console.log(response);
 
@@ -138,13 +143,14 @@ class TopicStore {
       const data = response.data;
 
       runInAction(() => {
-        const index = this.topics.findIndex((t) => t.id === id);
+        const numericId = Number(id);
+        const index = this.topics.findIndex((t) => t.id === numericId);
 
         if (index !== -1) {
           this.topics[index] = data;
         }
 
-        if (this.currentTopic?.id === id) {
+        if (this.currentTopic?.id === numericId) {
           this.currentTopic = data;
         }
 
@@ -159,7 +165,7 @@ class TopicStore {
 
       if (error.response) {
         const errorData = error.response.data;
-        console.log("Error data from server:", errorData);
+        console.log("Error from server:", errorData);
 
         if (errorData?.message) {
           errorMessage = errorData.message;
@@ -190,10 +196,11 @@ class TopicStore {
       await apiClient.delete(`/topics/${id}`);
 
       runInAction(() => {
-        this.topics = this.topics.filter((t) => t.id !== id);
+        const numericId = Number(id);
+        this.topics = this.topics.filter((t) => t.id !== numericId);
 
-        if (this.currentTopic?.id === id) {
-          this.currentTopic.id = null;
+        if (this.currentTopic?.id === numericId) {
+          this.currentTopic = null;
         }
 
         this.isLoading = false;
@@ -206,22 +213,22 @@ class TopicStore {
 
       if (error.response) {
         const errorData = error.response.data;
-        console.log("Error data from server:", errorData);
+        console.log("Error from server:", errorData);
 
         if (errorData?.message) {
           errorMessage = errorData.message;
         }
-
-        runInAction(() => {
-          this.isLoading = false;
-          this.error = errorMessage;
-        });
-
-        return {
-          success: false,
-          error: errorMessage,
-        };
       }
+
+      runInAction(() => {
+        this.isLoading = false;
+        this.error = errorMessage;
+      });
+
+      return {
+        success: false,
+        error: errorMessage,
+      };
     }
   }
 
@@ -230,19 +237,26 @@ class TopicStore {
     this.error = null;
 
     try {
-      const response = await apiClient.get(`lessons/topic/${topicId}`);
-
+      const response = await apiClient.get(`/lessons/topic/${topicId}`);
       const data = response.data;
 
+      console.log(data);
+
       runInAction(() => {
-        if (this.currentTopic?.id === topicId) {
+        const numericTopicId = Number(topicId);
+        const currentId = this.currentTopic?.id;
+
+        console.log({ numericTopicId, currentId });
+
+        if (currentId === numericTopicId) {
           this.currentTopic = {
             ...this.currentTopic,
             lessons: data,
           };
+          console.log(this.currentTopic);
         }
-        const index = this.topics.findIndex((t) => t.id === topicId);
 
+        const index = this.topics.findIndex((t) => t.id === numericTopicId);
         if (index !== -1) {
           this.topics[index] = {
             ...this.topics[index],
@@ -260,7 +274,7 @@ class TopicStore {
 
       if (error.response) {
         const errorData = error.response.data;
-        console.log("Error data from server:", errorData);
+        console.log("Error from server:", errorData);
 
         if (errorData?.message) {
           errorMessage = errorData.message;
@@ -280,23 +294,6 @@ class TopicStore {
         error: errorMessage,
       };
     }
-  }
-
-  clearError() {
-    this.error = null;
-  }
-
-  clearCurrentTopic() {
-    this.currentTopic = null;
-  }
-
-  reset() {
-    runInAction(() => {
-      this.topics = [];
-      this.currentTopic = null;
-      this.isLoading = false;
-      this.error = null;
-    });
   }
 
   async fetchTopicsByGrade(gradeId) {
@@ -340,7 +337,23 @@ class TopicStore {
   getTopicsByGradeId(gradeId) {
     return this.topics.filter((topic) => topic.gradeId === gradeId);
   }
-  
+
+  clearError() {
+    this.error = null;
+  }
+
+  clearCurrentTopic() {
+    this.currentTopic = null;
+  }
+
+  reset() {
+    runInAction(() => {
+      this.topics = [];
+      this.currentTopic = null;
+      this.isLoading = false;
+      this.error = null;
+    });
+  }
 }
 
 export default new TopicStore();
