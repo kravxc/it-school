@@ -1,13 +1,16 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import App from "./App";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import "./styles/global.css";
 import HomePage from "./pages/HomePage/HomePage";
-import CoursesPage from "./pages/CoursesPage/CoursesPage";
+import CoursesPage from "./pages/TopicsPage/TopicsPage";
 import TopicPage from "./pages/TopicPage/TopicPage";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import RequireGrade from "./components/ProtectedRoute/RequireGrade";
+
 const router = createBrowserRouter(
   [
     {
@@ -26,14 +29,37 @@ const router = createBrowserRouter(
           path: "login",
           element: <LoginPage />,
         },
+
         {
           path: "courses",
-          element: <CoursesPage />,
+          element: (
+            <ProtectedRoute>
+              <RequireGrade>
+                <Outlet />
+              </RequireGrade>
+            </ProtectedRoute>
+          ),
+          children: [
+            {
+              index: true,
+              element: <CoursesPage />,
+            },
+          ],
         },
         {
-          path: "topics/:id",
-          element: <TopicPage />
-        }
+          path: "topics",
+          element: (
+            <ProtectedRoute>
+              <Outlet />
+            </ProtectedRoute>
+          ),
+          children: [
+            {
+              path: ":id",
+              element: <TopicPage />,
+            },
+          ],
+        },
       ],
     },
   ],

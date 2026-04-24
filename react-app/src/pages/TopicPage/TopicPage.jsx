@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { observer } from "mobx-react-lite";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { topicStore, authStore, fileStore } from "../../stores";
+import { useParams, Link } from "react-router-dom";
+import { topicStore, fileStore } from "../../stores";
+import LessonCard from "../../components/LessonCard/LessonCard";
 import styles from "./topic.module.css";
 
 const TopicPage = observer(() => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [activeLesson, setActiveLesson] = useState(null);
   const [lessonsLoaded, setLessonsLoaded] = useState(false);
   const [loadingFiles, setLoadingFiles] = useState({});
@@ -14,14 +14,8 @@ const TopicPage = observer(() => {
   const [imagePreviews, setImagePreviews] = useState({});
   const [topicData, setTopicData] = useState(null);
   const [lessonsData, setLessonsData] = useState([]);
-  const isInitialLoad = useRef(true);
 
   useEffect(() => {
-    if (!authStore.isAuthenticated) {
-      navigate("/login");
-      return;
-    }
-
     const loadTopic = async () => {
       setLessonsLoaded(false);
 
@@ -30,7 +24,7 @@ const TopicPage = observer(() => {
       if (topicResult.success) {
         setTopicData(topicResult.data);
 
-        await new Promise((resolve) => setTimeout(resolve,100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
         const lessonsResult = await topicStore.fetchTopicLessons(id);
 
         if (lessonsResult.success) {
@@ -45,9 +39,7 @@ const TopicPage = observer(() => {
     };
 
     loadTopic();
-
-    isInitialLoad.current = false;
-  }, [id, navigate]);
+  }, [id]);
 
   useEffect(() => {
     return () => {
@@ -73,81 +65,45 @@ const TopicPage = observer(() => {
 
   useEffect(() => {
     if (activeLesson) {
-      const files = getFilesForLesson(activeLesson);
-      files.forEach((file) => {
+      const files = lessonFiles[activeLesson] || [];
+      files.forEach(({ mimeType, originalName, id: fileId }) => {
         const isImage =
-          file.mimeType?.startsWith("image/") ||
-          fileStore.isImageFile(file.originalName);
+          mimeType?.startsWith("image/") || fileStore.isImageFile(originalName);
         if (isImage) {
-          loadImagePreview(file.id);
+          loadImagePreview(fileId);
         }
       });
     }
   }, [activeLesson, lessonFiles, loadImagePreview]);
 
-  const handleLessonClick = async (lessonId) => {
-    const newActiveLesson = activeLesson === lessonId ? null : lessonId;
-    setActiveLesson(newActiveLesson);
+  const handleLessonToggle = useCallback(
+    async (lessonId) => {
+      const newActiveLesson = activeLesson === lessonId ? null : lessonId;
+      setActiveLesson(newActiveLesson);
 
-    if (newActiveLesson && !lessonFiles[lessonId]) {
-      setLoadingFiles((prev) => ({ ...prev, [lessonId]: true }));
+      if (newActiveLesson && !lessonFiles[lessonId]) {
+        setLoadingFiles((prev) => ({ ...prev, [lessonId]: true }));
 
-      const result = await fileStore.fetchLessonFiles(lessonId);
+        const result = await fileStore.fetchLessonFiles(lessonId);
 
-      if (result.success) {
-        setLessonFiles((prev) => ({
-          ...prev,
-          [lessonId]: result.data,
-        }));
+        if (result.success) {
+          setLessonFiles((prev) => ({
+            ...prev,
+            [lessonId]: result.data,
+          }));
+        }
+
+        setLoadingFiles((prev) => ({ ...prev, [lessonId]: false }));
       }
-
-      setLoadingFiles((prev) => ({ ...prev, [lessonId]: false }));
-    }
-  };
+    },
+    [activeLesson, lessonFiles],
+  );
 
   const handleDownloadFile = async (fileId, originalName) => {
     const result = await fileStore.downloadFile(fileId, originalName);
     if (!result.success) {
       alert("Ошибка при скачивании файла: " + result.error);
     }
-  };
-
-  const getFilesForLesson = (lessonId) => {
-    return lessonFiles[lessonId] || [];
-  };
-
-  const getFileIcon = (fileName) => {
-    if (!fileName) return "fa-file";
-    const ext = fileName.split(".").pop()?.toLowerCase();
-    const icons = {
-      pdf: "fa-file-pdf",
-      doc: "fa-file-word",
-      docx: "fa-file-word",
-      xls: "fa-file-excel",
-      xlsx: "fa-file-excel",
-      ppt: "fa-file-powerpoint",
-      pptx: "fa-file-powerpoint",
-      zip: "fa-file-archive",
-      rar: "fa-file-archive",
-      jpg: "fa-file-image",
-      jpeg: "fa-file-image",
-      png: "fa-file-image",
-      gif: "fa-file-image",
-      bmp: "fa-file-image",
-      webp: "fa-file-image",
-      svg: "fa-file-image",
-      mp4: "fa-file-video",
-      mp3: "fa-file-audio",
-      txt: "fa-file-alt",
-    };
-    return icons[ext] || "fa-file";
-  };
-
-  const formatFileSize = (bytes) => {
-    if (!bytes) return "";
-    if (bytes < 1024) return bytes + " B";
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
-    return (bytes / (1024 * 1024)).toFixed(1) + " MB";
   };
 
   if (topicStore.isLoading || !lessonsLoaded) {
@@ -240,159 +196,19 @@ const TopicPage = observer(() => {
 
           {lessons.length > 0 ? (
             <div className={styles.lessonsList}>
-              {lessons.map((lesson, index) => {
-                const files = getFilesForLesson(lesson.id);
-                const isFilesLoading = loadingFiles[lesson.id];
-                const filesCount = lesson.filesCount || files.length;
-
-                return (
-                  <div key={lesson.id} className={styles.lessonCard}>
-                    <div
-                      className={styles.lessonHeader}
-                      onClick={() => handleLessonClick(lesson.id)}
-                    >
-                      <div className={styles.lessonNumber}>
-                        <span>{index + 1}</span>
-                      </div>
-                      <div className={styles.lessonInfo}>
-                        <h3>{lesson.title}</h3>
-                        {lesson.description && <p>{lesson.description}</p>}
-                        <div className={styles.lessonMeta}>
-                          <span>
-                            <i className="fas fa-tasks"></i>
-                            {lesson.tasksCount || 0} заданий
-                          </span>
-                          <span>
-                            <i className="fas fa-file"></i>
-                            {filesCount} файлов
-                          </span>
-                        </div>
-                      </div>
-                      <div className={styles.lessonArrow}>
-                        <i
-                          className={`fas fa-chevron-${activeLesson === lesson.id ? "up" : "down"}`}
-                        ></i>
-                      </div>
-                    </div>
-
-                    {activeLesson === lesson.id && (
-                      <div className={styles.lessonContent}>
-                        <div className={styles.filesSection}>
-                          <h4>
-                            <i className="fas fa-paperclip"></i> Файлы урока
-                          </h4>
-
-                          {isFilesLoading ? (
-                            <div className={styles.filesLoading}>
-                              <i className="fas fa-spinner fa-spin"></i>
-                              <span>Загрузка файлов...</span>
-                            </div>
-                          ) : files.length > 0 ? (
-                            <div className={styles.filesList}>
-                              {files.map((file) => {
-                                const isImage =
-                                  file.mimeType?.startsWith("image/") ||
-                                  fileStore.isImageFile(file.originalName);
-                                const displayName =
-                                  file.originalName || file.name || "Файл";
-
-                                return (
-                                  <div
-                                    key={file.id}
-                                    className={styles.fileItem}
-                                  >
-                                    <div className={styles.fileInfo}>
-                                      {isImage && imagePreviews[file.id] ? (
-                                        <img
-                                          src={imagePreviews[file.id]}
-                                          alt={displayName}
-                                          className={styles.filePreview}
-                                        />
-                                      ) : (
-                                        <i
-                                          className={`fas ${getFileIcon(displayName)}`}
-                                        ></i>
-                                      )}
-                                      <span className={styles.fileName}>
-                                        {displayName}
-                                      </span>
-                                      {file.fileSize && (
-                                        <span className={styles.fileSize}>
-                                          {formatFileSize(file.fileSize)}
-                                        </span>
-                                      )}
-                                    </div>
-                                    <button
-                                      className={styles.downloadButton}
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleDownloadFile(
-                                          file.id,
-                                          file.originalName || file.name,
-                                        );
-                                      }}
-                                      title="Скачать файл"
-                                    >
-                                      <i className="fas fa-download"></i>
-                                      <span>Скачать</span>
-                                    </button>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          ) : (
-                            <p className={styles.noFiles}>
-                              {filesCount > 0
-                                ? "Нажмите на урок, чтобы загрузить файлы"
-                                : "Нет прикрепленных файлов"}
-                            </p>
-                          )}
-                        </div>
-
-                        {lesson.tasks && lesson.tasks.length > 0 && (
-                          <div className={styles.tasksSection}>
-                            <h4>
-                              <i className="fas fa-tasks"></i> Задания
-                            </h4>
-                            <div className={styles.tasksList}>
-                              {lesson.tasks.map((task) => (
-                                <div key={task.id} className={styles.taskCard}>
-                                  <div className={styles.taskHeader}>
-                                    <h5>{task.title}</h5>
-                                    <span
-                                      className={`${styles.difficultyBadge} ${styles[task.difficulty?.toLowerCase()] || ""}`}
-                                    >
-                                      {task.difficulty}
-                                    </span>
-                                  </div>
-                                  {task.description && (
-                                    <p className={styles.taskDescription}>
-                                      {task.description}
-                                    </p>
-                                  )}
-                                  {task.content && (
-                                    <div className={styles.taskContent}>
-                                      <pre>{task.content}</pre>
-                                    </div>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {(!lesson.tasks || lesson.tasks.length === 0) &&
-                          files.length === 0 &&
-                          !isFilesLoading && (
-                            <p className={styles.noContent}>
-                              Нет материалов для этого урока
-                            </p>
-                          )}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+              {lessons.map((lesson, index) => (
+                <LessonCard
+                  key={lesson.id}
+                  lesson={lesson}
+                  index={index}
+                  isActive={activeLesson === lesson.id}
+                  onToggle={handleLessonToggle}
+                  files={lessonFiles[lesson.id] || []}
+                  isFilesLoading={loadingFiles[lesson.id]}
+                  imagePreviews={imagePreviews}
+                  onDownloadFile={handleDownloadFile}
+                />
+              ))}
             </div>
           ) : (
             <div className={styles.emptyState}>
