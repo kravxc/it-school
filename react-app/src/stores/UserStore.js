@@ -1,8 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import apiClient from "../api/client";
 
-class LessonStore {
-  lessons = [];
+class UserStore {
+  users = [];
   isLoading = false;
   error = null;
 
@@ -10,74 +10,82 @@ class LessonStore {
     makeAutoObservable(this);
   }
 
-  async fetchAllLessons() {
+  async getAllUsers() {
     this.isLoading = true;
     this.error = null;
 
     try {
-      const response = await apiClient.get("/lessons");
+      const response = await apiClient.get("/users");
 
       runInAction(() => {
-        ((this.lessons = response.data),
-          (this.isLoading = false),
-          (this.error = null));
+        this.users = response.data;
+        this.isLoading = false;
+        this.error = null;
       });
 
       return { success: true, data: response.data };
     } catch (error) {
-      let errorMessage = "Ошибка загрузки уроков";
+      let errorMessage = "Ошибка загрузки пользователей";
 
       console.log(error);
+
+      runInAction(() => {
+        this.isLoading = false;
+        this.error = errorMessage;
+      });
+
+      return { success: false, error: errorMessage };
+    }
+  }
+
+  async bindUserWithGrade(gradeId, userId) {
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      const response = await apiClient.put(
+        `/users/${userId}/bind-grade`,
+        gradeId,
+      );
+
+      console.log(response);
+
+      const data = response.data;
+
+      runInAction(() => {
+        const numericId = Number(userId);
+        const index = this.users.findIndex((u) => u.id === numericId);
+
+        if (index !== 1) {
+          this.users[index] = data;
+        }
+
+        ((this.isLoading = false), (this.error = null));
+      });
+
+      return { success: true, data };
+    } catch (error) {
+      let errorMessage = "Ошибка добавления пользователя к классу";
+      let serverErrors = null;
+
+      console.log(error);
+
+      if (error.response) {
+        const errorData = error.response.data;
+        console.log("Error from server:", errorData);
+
+        if (errorData?.message) {
+          errorMessage = errorData.message;
+        }
+        if (errorData?.errors) {
+          serverErrors = errorData.errors;
+        }
+      }
 
       runInAction(() => {
         ((this.isLoading = false), (this.error = errorMessage));
       });
 
-      return { success: false, error: errorMessage };
-    }
-  }
-
-  async createLesson(lessonData) {
-    this.isLoading = true;
-    this.error = null;
-
-    try {
-      const response = await apiClient.post("/lessons", lessonData);
-
-      console.log(response);
-
-      const data = response.data;
-
-      runInAction(() => {
-        this.lessons.push(data);
-        this.isLoading = false;
-        this.error = null;
-      });
-
-      return { success: true, data };
-    } catch (error) {
-      let errorMessage = "Ошибка при создании урока";
-      let serverErrors = null;
-
-      console.log(error);
-
-      if (error.response) {
-        const errorData = error.response.data;
-        console.log("Error data from server:", errorData);
-
-        if (errorData?.message) {
-          errorMessage = errorData.message;
-        }
-        if (errorData?.errors) {
-          serverErrors = errorData.errors;
-        }
-      }
-
-      runInAction(() => {
-        this.isLoading = false;
-        this.error = errorMessage;
-      });
-
       return {
         success: false,
         error: errorMessage,
@@ -86,32 +94,29 @@ class LessonStore {
     }
   }
 
-  async updateLesson(id, lessonData) {
+  async unbindUserWithGrade(userId) {
     this.isLoading = true;
     this.error = null;
 
     try {
-      const response = await apiClient.put(`/lessons/${id}`, lessonData);
-
-      console.log(response);
+      const response = await apiClient.put(`/users/${userId}/unbind-grade`);
 
       const data = response.data;
 
       runInAction(() => {
-        const numericId = Number(id);
-        const index = this.lessons.findIndex((l) => l.id === numericId);
+        const numericId = Number(userId);
+        const index = this.users.findIndex((u) => u.id === numericId);
 
         if (index !== 1) {
-          this.lessons[index] = data;
+          this.users[index] = data;
         }
 
         this.isLoading = false;
         this.error = null;
       });
-
       return { success: true, data };
     } catch (error) {
-      let errorMessage = "Ошибка при обновлении урока";
+      let errorMessage = "Не удалось снять пользователя с класса";
       let serverErrors = null;
 
       console.log(error);
@@ -129,8 +134,7 @@ class LessonStore {
       }
 
       runInAction(() => {
-        this.isLoading = false;
-        this.error = errorMessage;
+        ((this.isLoading = false), (this.error = errorMessage));
       });
 
       return {
@@ -138,44 +142,6 @@ class LessonStore {
         error: errorMessage,
         serverErrors: serverErrors,
       };
-    }
-  }
-
-  async deleteLesson(id) {
-    this.isLoading = true;
-    this.error = null;
-
-    try {
-      await apiClient.delete(`/lessons/${id}`);
-
-      runInAction(() => {
-        const numericId = Number(id);
-        this.topics = this.topics.filter((l) => l.id !== numericId);
-
-        this.isLoading = false;
-        this.error = null;
-      });
-
-      return { success: true };
-    } catch (error) {
-      let errorMessage = "Ошибка удаления урока";
-
-      console.log(error);
-
-      if (error.response) {
-        const errorData = error.response.data;
-        console.log("Error from server:", errorData);
-        if (error?.message) {
-          errorMessage = errorData.message;
-        }
-      }
-
-      runInAction(() => {
-        this.isLoading = false;
-        this.error = errorMessage;
-      });
-
-      return { success: false, error: errorMessage };
     }
   }
 
