@@ -56,7 +56,7 @@ class UserStore {
         const numericId = Number(userId);
         const index = this.users.findIndex((u) => u.id === numericId);
 
-        if (index !== 1) {
+        if (index !== -1) {
           this.users[index] = data;
         }
 
@@ -107,7 +107,7 @@ class UserStore {
         const numericId = Number(userId);
         const index = this.users.findIndex((u) => u.id === numericId);
 
-        if (index !== 1) {
+        if (index !== -1) {
           this.users[index] = data;
         }
 
@@ -158,3 +158,4 @@ class UserStore {
     });
   }
 }
+export default  new UserStore();

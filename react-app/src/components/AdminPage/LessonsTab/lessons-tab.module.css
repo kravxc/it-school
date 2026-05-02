@@ -1,0 +1,132 @@
+.filterBar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filterSelect {
+  padding: 10px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1e293b;
+  background: white;
+  cursor: pointer;
+  min-width: 250px;
+}
+
+.filterSelect:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+.createButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.createButton:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3); }
+
+.lessonsGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; }
+
+.lessonCard {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #eef2f6;
+  transition: all 0.3s ease;
+}
+
+.lessonCard:hover { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); }
+
+.lessonCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.lessonCardHeader h3 { font-size: 18px; font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+
+.topicBadge {
+  display: inline-block;
+  font-size: 12px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.lessonDesc {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 16px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lessonStats { display: flex; gap: 16px; margin-bottom: 16px; }
+.lessonStats span { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #64748b; }
+.lessonStats i { color: #2563eb; }
+
+.lessonActions { display: flex; gap: 8px; }
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.actionBtn:hover { background: #f0f5ff; border-color: #2563eb; color: #2563eb; }
+.actionBtn i { font-size: 12px; }
+
+.actionButtons { display: flex; gap: 8px; }
+
+.editButton, .deleteButton {
+  width: 34px; height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.editButton { background: #f0f5ff; color: #2563eb; }
+.editButton:hover { background: #2563eb; color: white; }
+
+.deleteButton { background: #fef2f2; color: #ef4444; }
+.deleteButton:hover { background: #ef4444; color: white; }
+
+.emptyState { text-align: center; padding: 60px 20px; }
+.emptyState i { font-size: 48px; color: #cbd5e1; margin-bottom: 16px; }
+.emptyState h3 { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+.emptyState p { color: #64748b; }
+
+@media (max-width: 768px) {
+  .lessonsGrid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,80 @@
+.filterBar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tableContainer {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid #eef2f6;
+  overflow: hidden;
+}
+
+.table { width: 100%; border-collapse: collapse; }
+
+.table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  background: #f8fafd;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: #fafcff; }
+
+.titleCell { font-weight: 600; color: #0f172a; }
+
+.fileTypeBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #f1f5f9;
+  color: #475569;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.actionButtons { display: flex; gap: 8px; }
+
+.downloadBtn, .deleteButton {
+  width: 34px; height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.downloadBtn { background: #f0f5ff; color: #2563eb; }
+.downloadBtn:hover { background: #2563eb; color: white; }
+
+.deleteButton { background: #fef2f2; color: #ef4444; }
+.deleteButton:hover { background: #ef4444; color: white; }
+
+.emptyState { text-align: center; padding: 60px 20px; }
+.emptyState i { font-size: 48px; color: #cbd5e1; margin-bottom: 16px; }
+.emptyState h3 { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+.emptyState p { color: #64748b; }
+
+@media (max-width: 768px) {
+  .tableContainer { overflow-x: auto; }
+  .table { min-width: 500px; }
+}

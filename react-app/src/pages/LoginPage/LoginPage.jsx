@@ -15,8 +15,8 @@ const LoginPage = observer(() => {
   const [serverErrors, setServerErrors] = useState({});
 
   useEffect(() => {
-    if (authStore.isAuthenticated) {
-      navigate("/", { replace: true });
+    if (authStore.isAuthenticated && authStore.user) {
+      navigate(authStore.redirectPath, { replace: true });
     }
   }, [navigate]);
 
@@ -59,7 +59,7 @@ const LoginPage = observer(() => {
     const result = await authStore.login(formData.email, formData.password);
 
     if (result.success) {
-      navigate("/");
+      navigate(authStore.redirectPath, { replace: true });
     } else {
       if (result.serverErrors) {
         setServerErrors(result.serverErrors);
@@ -157,7 +157,7 @@ const LoginPage = observer(() => {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                   </svg>
-                  Вход
+                  Вход...
                 </>
               ) : (
                 "Войти"

@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import apiClient from "../api/client";
 
 class FileStore {
+  files = [];
   lessonFiles = [];
   isLoading = false;
   error = null;
@@ -9,6 +10,34 @@ class FileStore {
   constructor() {
     makeAutoObservable(this);
   }
+
+  async fetchAllFiles(){
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      const response = await apiClient.get("/files");
+
+      runInAction(() => {
+        ((this.isLoading = false),
+          (this.error = null),
+          (this.files = response.data));
+      });
+
+      return { success: true, data: response.data };
+    } catch (error) {
+      let errorMessage = "Ошибка загрузки уроков";
+
+      console.log(error);
+
+      runInAction(() => {
+        ((this.isLoading = false), (this.error = errorMessage));
+      });
+
+      return { success: false, error: errorMessage };
+    }
+  }
+
 
   async fetchLessonFiles(lessonId) {
     this.isLoading = true;
@@ -126,22 +155,18 @@ class FileStore {
       const formData = new FormData();
       formData.append("file", file);
 
-      if (fileData.title) {
-        formData.append("title", fileData.title);
-      }
-      if (fileData.description) {
-        formData.append("description", fileData.description);
+      if (fileData.title || file.name) {
+        formData.append("name", fileData.title || file.name);
       }
 
-      const response = await apiClient.post(
-        `/lesson-files/upload/${lessonId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      const fileExtension = file.name.split(".").pop();
+      formData.append("type", fileExtension);
+
+      const response = await apiClient.post("/files/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-      );
+      });
 
       console.log("Upload response:", response);
 
@@ -170,7 +195,7 @@ class FileStore {
     this.error = null;
 
     try {
-      await apiClient.delete(`/lesson-files/${fileId}`);
+      await apiClient.delete(`/files/${fileId}`);
 
       runInAction(() => {
         this.lessonFiles = this.lessonFiles.filter((f) => f.id !== fileId);
@@ -181,6 +206,37 @@ class FileStore {
       return { success: true };
     } catch (error) {
       let errorMessage = "Ошибка удаления файла";
+      console.log(error);
+
+      runInAction(() => {
+        this.isLoading = false;
+        this.error = errorMessage;
+      });
+
+      return { success: false, error: errorMessage };
+    }
+  }
+
+  async linkFileToLesson(lessonId, fileId) {
+    this.isLoading = true;
+    this.error = null;
+
+    try {
+      const response = await apiClient.post("/lesson-files", {
+        lessonId: lessonId,
+        fileId: fileId,
+      });
+
+      console.log("Link file to lesson response:", response);
+
+      runInAction(() => {
+        this.isLoading = false;
+        this.error = null;
+      });
+
+      return { success: true, data: response.data };
+    } catch (error) {
+      let errorMessage = "Ошибка привязки файла к уроку";
       console.log(error);
 
       runInAction(() => {

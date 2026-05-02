@@ -317,3 +317,23 @@
 button.dropdownItem {
   font-family: inherit;
 }
+
+.adminLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #2563eb !important;
+  font-weight: 500;
+}
+
+.adminLink i {
+  font-size: 14px;
+}
+
+.adminLink:hover {
+  color: #1d4ed8 !important;
+}
+
+.adminLink::after {
+  background: #2563eb !important;
+}

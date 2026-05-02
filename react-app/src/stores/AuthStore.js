@@ -7,7 +7,7 @@ class AuthStore {
   token = getCookie("auth_token");
   isLoading = false;
   error = null;
-  isAuthenticated = false; 
+  isAuthenticated = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -28,6 +28,12 @@ class AuthStore {
 
   get gradeDisplayName() {
     return this.user?.gradeDisplayName || null;
+  }
+
+  get redirectPath() {
+    if (!this.user) return "/";
+    if (this.isAdmin) return "/admin";
+    return "/courses";
   }
 
   async signup(userData) {
@@ -126,7 +132,7 @@ class AuthStore {
 
   async fetchCurrentUser() {
     const currentToken = this.token || getCookie("auth_token");
-    
+
     if (!currentToken) {
       console.warn("No token available for fetchCurrentUser");
       return;
@@ -134,7 +140,7 @@ class AuthStore {
 
     try {
       const response = await apiClient.get("/users/me");
-      console.log('Current user: ' +  response.data);
+      console.log("Current user: ", response.data);
 
       runInAction(() => {
         this.user = {
@@ -145,6 +151,8 @@ class AuthStore {
           gradeId: response.data.gradeId,
           gradeName: response.data.gradeName,
           gradeDisplayName: response.data.gradeDisplayName,
+          createdAt: response.data.createdAt,
+          updatedAt: response.data.updatedAt
         };
         this.isAuthenticated = true;
       });

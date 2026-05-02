@@ -8,9 +8,11 @@ import "./styles/global.css";
 import HomePage from "./pages/HomePage/HomePage";
 import CoursesPage from "./pages/TopicsPage/TopicsPage";
 import TopicPage from "./pages/TopicPage/TopicPage";
+import AdminPage from "./pages/AdminPage/AdminPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import RequireGrade from "./components/ProtectedRoute/RequireGrade";
-
+import RequireAdmin from "./components/ProtectedRoute/RequireAdmin";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 const router = createBrowserRouter(
   [
     {
@@ -29,7 +31,6 @@ const router = createBrowserRouter(
           path: "login",
           element: <LoginPage />,
         },
-
         {
           path: "courses",
           element: (
@@ -57,6 +58,30 @@ const router = createBrowserRouter(
             {
               path: ":id",
               element: <TopicPage />,
+            },
+          ],
+        },
+        {
+          path: "profile",
+          element: (
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "admin",
+          element: (
+            <ProtectedRoute>
+              <RequireAdmin>
+                <Outlet />
+              </RequireAdmin>
+            </ProtectedRoute>
+          ),
+          children: [
+            {
+              index: true,
+              element: <AdminPage />,
             },
           ],
         },

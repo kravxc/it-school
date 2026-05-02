@@ -15,6 +15,8 @@ const Header = observer(() => {
     if (path === "/" && location.pathname === "/") return true;
     if (path === "/courses" && location.pathname.startsWith("/courses"))
       return true;
+    if (path === "/admin" && location.pathname.startsWith("/admin"))
+      return true;
     if (path === "/login" && location.pathname === "/login") return true;
     if (path === "/signup" && location.pathname === "/signup") return true;
     return false;
@@ -43,6 +45,9 @@ const Header = observer(() => {
       .toUpperCase();
   };
 
+  const showAdminButton =
+    authStore.isAuthenticated && (authStore.isAdmin || authStore.isTeacher);
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -65,6 +70,16 @@ const Header = observer(() => {
                 className={isActive("/courses") ? styles.active : ""}
               >
                 Мои курсы
+              </Link>
+            )}
+
+            {showAdminButton && (
+              <Link
+                to="/admin"
+                className={`${styles.adminLink} ${isActive("/admin") ? styles.active : ""}`}
+              >
+                <i className="fas fa-cog"></i>
+                Управление
               </Link>
             )}
 
@@ -148,6 +163,21 @@ const Header = observer(() => {
                       </div>
                     </div>
                     <div className={styles.dropdownDivider}></div>
+
+                    {showAdminButton && (
+                      <>
+                        <Link
+                          to="/admin"
+                          className={styles.dropdownItem}
+                          onClick={() => setShowUserMenu(false)}
+                        >
+                          <i className="fas fa-cog"></i>
+                          <span>Панель управления</span>
+                        </Link>
+                        <div className={styles.dropdownDivider}></div>
+                      </>
+                    )}
+
                     <Link
                       to="/profile"
                       className={styles.dropdownItem}

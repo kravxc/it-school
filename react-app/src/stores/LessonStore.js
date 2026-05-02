@@ -101,7 +101,7 @@ class LessonStore {
         const numericId = Number(id);
         const index = this.lessons.findIndex((l) => l.id === numericId);
 
-        if (index !== 1) {
+        if (index !== -1) {
           this.lessons[index] = data;
         }
 
@@ -150,7 +150,7 @@ class LessonStore {
 
       runInAction(() => {
         const numericId = Number(id);
-        this.topics = this.topics.filter((l) => l.id !== numericId);
+        this.topics = this.lessons.filter((l) => l.id !== numericId);
 
         this.isLoading = false;
         this.error = null;
@@ -192,3 +192,5 @@ class LessonStore {
     });
   }
 }
+
+export default new LessonStore();
