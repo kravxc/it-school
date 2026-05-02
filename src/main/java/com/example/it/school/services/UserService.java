@@ -7,11 +7,15 @@ import com.example.it.school.entity.User;
 import com.example.it.school.exception.ResourceNotFoundException;
 import com.example.it.school.repository.GradeRepository;
 import com.example.it.school.repository.UserRepository;
+import com.example.it.school.security.JwtService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +24,16 @@ public class UserService {
     private final UserRepository userRepository;
 
     private final GradeRepository gradeRepository;
+    private final JwtService jwtService;
+
+
+    public List<UserResponse> getAllUsers(){
+        log.info("Fetching all users");
+
+      return userRepository.findByOrderByCreatedAtDesc().stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
 
     @Transactional
     public UserResponse bindUserWithGrade(UserRequest request, Long userId){
@@ -40,7 +54,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse undbindUserFromGrade(Long userId){
+    public UserResponse unbindUserFromGrade(Long userId){
         log.info("Unbinding user {} from grade", userId);
 
         User user = userRepository.findById(userId)
@@ -52,6 +66,23 @@ public class UserService {
         log.info("User {} successfully unbound from grade", user.getName());
 
         return mapToResponse(savedUser);
+    }
+
+
+    public UserResponse getCurrentUser(String authHeader){
+        log.info("Get current user from token");
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")){
+            throw new RuntimeException("Invalid or missing Authorization header");
+        }
+
+        String token = authHeader.substring(7);
+        String userEmail = jwtService.extractUsername(token);
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", userEmail));
+
+        return mapToResponse(user);
     }
     private UserResponse mapToResponse(User user){
 

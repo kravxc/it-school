@@ -16,6 +16,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     boolean existsByTitleAndLessonId(String title, Long lessonId);
 
+    List<Task> findAllByOrderByCreatedAtDesc();
+
     List<Task> findAllByLessonIdOrderByCreatedAtDesc(Long lessonId);
 
     List<Task> findByLessonIdAndTitleContainingIgnoreCase(Long lessonId, String Title);

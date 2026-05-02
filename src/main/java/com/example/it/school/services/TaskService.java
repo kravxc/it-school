@@ -25,6 +25,14 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final LessonRepository lessonRepository;
 
+    public List<TaskResponse> getAllTasks(){
+        log.info("Fetching all tasks");
+
+        return taskRepository.findAllByOrderByCreatedAtDesc().stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public TaskResponse createTask(TaskRequest request){
         log.info("Creating task: {}", request.getTitle());

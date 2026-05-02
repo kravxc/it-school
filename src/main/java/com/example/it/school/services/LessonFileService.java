@@ -57,7 +57,7 @@ public class LessonFileService {
     public List<FileResponse> getFilesByLessonId(Long lessonId) {
         log.info("Fetching files by lesson: {}", lessonId);
 
-        if (!lessonFileRepository.existsById(lessonId)) {
+        if (!lessonRepository.existsById(lessonId)) {
             throw new ResourceNotFoundException("Lesson", "id", lessonId);
         }
 

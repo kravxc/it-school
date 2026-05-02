@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByIdAndGradeId(Long userId, Long gradeId);
 
     boolean existsByGradeId(Long gradeId);
+
+    List<User> findByOrderByCreatedAtDesc();
 }

@@ -21,6 +21,14 @@ public class TaskController {
 
     private final TaskService taskService;
 
+    @GetMapping
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<TaskResponse>> getAllTasks(){
+        log.info("GET /api/task - fetch all tasks");
+
+        return ResponseEntity.ok(taskService.getAllTasks());
+    }
+
     @PostMapping
     @PreAuthorize("hasAnyRole('admin', 'teacher')")
     public ResponseEntity<TaskResponse> createTask(@Valid @RequestBody TaskRequest request){

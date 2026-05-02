@@ -27,7 +27,7 @@ public class LessonController {
     @GetMapping
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<LessonResponse>> getAllLessons(){
-        log.info("GET /api/lessons = get all lessons");
+        log.info("GET /api/lessons - get all lessons");
         return ResponseEntity.ok(lessonService.getAllLessons());
 
     }
