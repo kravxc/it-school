@@ -1,0 +1,1497 @@
+{
+  "info": {
+    "_postman_id": "16e26e92-9b15-4baf-b988-48fe96b25527",
+    "name": "it school",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49717995",
+    "_collection_link": "https://go.postman.co/collection/49717995-16e26e92-9b15-4baf-b988-48fe96b25527?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "signup",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\":\"Joe\",\n    \"email\": \"example@test.ru\",\n    \"password\":\"12345678\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{host}}/signup",
+          "host": [
+            "{{host}}"
+          ],
+          "path": [
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "auth",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"example@test.ru\",\n    \"password\": \"12345678\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/auth/login",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get all topics",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "create topic",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGUyc3dlc3cydC5ydSIsImlhdCI6MTc3NDI2Mjg1MywiZXhwIjoxNzc0MzQ5MjUzfQ.amDg3gtgdFfCRn5HZSfO1Qp6lBJLEFcqdi9G494bNdo",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"123\",\n    \"description\": \"description\",\n    \"gradeId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/topics",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "topics"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get Topic",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGUyc3dlc3cydC5ydSIsImlhdCI6MTc3NDI2Mjg1MywiZXhwIjoxNzc0MzQ5MjUzfQ.amDg3gtgdFfCRn5HZSfO1Qp6lBJLEFcqdi9G494bNdo",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{jhost}}/api/topics/1",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "topics",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get topics by grade",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGUyc3dlc3cydC5ydSIsImlhdCI6MTc3NDI2Mjg1MywiZXhwIjoxNzc0MzQ5MjUzfQ.amDg3gtgdFfCRn5HZSfO1Qp6lBJLEFcqdi9G494bNdo",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{jhost}}/api/topics/grade/1",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "topics",
+            "grade",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update topic",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGUyc3dlc3cydC5ydSIsImlhdCI6MTc3NDI2Mjg1MywiZXhwIjoxNzc0MzQ5MjUzfQ.amDg3gtgdFfCRn5HZSfO1Qp6lBJLEFcqdi9G494bNdo",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\":\"121342\",\n    \"gradeId\": 2,\n    \"description\": \"description\"\n\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/topics/1",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "topics",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete topic",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGUyc3dlc3cydC5ydSIsImlhdCI6MTc3NDI2Mjg1MywiZXhwIjoxNzc0MzQ5MjUzfQ.amDg3gtgdFfCRn5HZSfO1Qp6lBJLEFcqdi9G494bNdo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{jhost}}/api/topics/1",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "topics",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "search topic",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGUyc3dlc3cydC5ydSIsImlhdCI6MTc3NDI2Mjg1MywiZXhwIjoxNzc0MzQ5MjUzfQ.amDg3gtgdFfCRn5HZSfO1Qp6lBJLEFcqdi9G494bNdo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/topics/search?keyword=2",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "topics",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create lesson",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lesson title2\",\n    \"description\": \"\",\n    \"topicId\": 2\n\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lessons",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lessons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get all lessons",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lesson title2\",\n    \"description\": \"\",\n    \"topicId\": 2\n\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lessons",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lessons"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get lesson",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lesson title2\",\n    \"description\": \"\",\n    \"topicId\": 2\n\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lessons/1",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lessons",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get lessons by topic id",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "update lesson by id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"topicId\": 2,\n    \"title\": \"title upd\",\n    \"description\": \"description upd\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lessons/2",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lessons",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete lesson by id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"topicId\": 2,\n    \"title\": \"title upd\",\n    \"description\": \"description upd\"\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lessons/2",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lessons",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "search lesson by keyword",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"topicId\": 2,\n    \"title\": \"title upd\",\n    \"description\": \"description upd\"\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lessons/search?keyword=t",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lessons",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "t"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create task",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lesson title45\",\n    \"description\": \"\",\n    \"lessonId\": 3,\n    \"content\": \"content task\",\n    \"difficulty\": \"easy\"\n\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/tasks",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get task by id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lesson title45\",\n    \"description\": \"\",\n    \"lessonId\": 3,\n    \"content\": \"content task\",\n    \"difficulty\": \"easy\"\n\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/tasks/2",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "tasks",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get tasks by lesson id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lesson title45\",\n    \"description\": \"\",\n    \"lessonId\": 3,\n    \"content\": \"content task\",\n    \"difficulty\": \"easy\"\n\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/tasks/lesson/3",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "tasks",
+            "lesson",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update task by id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"les3son tit3le45\",\n    \"description\": \"\",\n    \"lessonId\": 3,\n    \"content\": \"content task\",\n    \"difficulty\": \"easy\"\n\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/tasks/2",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "tasks",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete task by id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lesson title45\",\n    \"description\": \"\",\n    \"lessonId\": 3,\n    \"content\": \"content task\",\n    \"difficulty\": \"easy\"\n\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/tasks/1",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "tasks",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "search tasks by keyword",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9zdHVkZW50Iiwic3ViIjoiZXhhbXBsZUB0ZXN0LnJ1IiwiaWF0IjoxNzc0NDMzODU5LCJleHAiOjE3NzQ1MjAyNTl9.CiqRkYZY6cA54Is0JgIs_Y4i87kjO7I47DLLUmp2gMk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lesson title45\",\n    \"description\": \"\",\n    \"lessonId\": 3,\n    \"content\": \"content task\",\n    \"difficulty\": \"easy\"\n\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/tasks/search?keyword=task",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "tasks",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "task"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "bind user with grade",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDY4OTkwNCwiZXhwIjoxNzc0Nzc2MzA0fQ.zVjmcAQKax2magNQoTA-whb2dPSL468ifZtKEC7UaIU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"gradeId\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/users/2/bind-grade",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2",
+            "bind-grade"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "unbind user from grade",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDY4OTkwNCwiZXhwIjoxNzc0Nzc2MzA0fQ.zVjmcAQKax2magNQoTA-whb2dPSL468ifZtKEC7UaIU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"gradeId\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/users/2/unbind-grade",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "2",
+            "unbind-grade"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "search tasks in lesson",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDY4OTkwNCwiZXhwIjoxNzc0Nzc2MzA0fQ.zVjmcAQKax2magNQoTA-whb2dPSL468ifZtKEC7UaIU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{jhost}}/api/tasks/search/lesson/3?keyword=3",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "tasks",
+            "search",
+            "lesson",
+            "3"
+          ],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "3"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "upload file",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "uuid": "6826da1d-5a68-4bfc-a7cd-1550c64957a6",
+              "src": "/Users/kirillparfirov/Downloads/Практическая работа №12. Матрица рисков.docx"
+            },
+            {
+              "key": "name",
+              "value": "пр 12",
+              "type": "text",
+              "uuid": "dd523c57-3d4d-4bce-a343-d2f9fc460f05"
+            },
+            {
+              "key": "type",
+              "value": "docx",
+              "type": "text",
+              "uuid": "a30cf590-0985-489a-a220-82aef6cae6c4"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{jhost}}/api/files/upload",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "files",
+            "upload"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get all files",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDk0MjYwNSwiZXhwIjoxNzc1MDI5MDA1fQ.o_pAR2z4mxiwsTHkRaanU4pafKtlNyxBxzVSUkkhPKM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{jhost}}/api/files",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "files"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get file by id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{jhost}}/api/files/3",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "files",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "download file by id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{jhost}}/api/files/download/4",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "files",
+            "download",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete file by id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDk0MjYwNSwiZXhwIjoxNzc1MDI5MDA1fQ.o_pAR2z4mxiwsTHkRaanU4pafKtlNyxBxzVSUkkhPKM",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{jhost}}/api/files/5",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "files",
+            "5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "attach file to lesson",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"lessonId\": 3,\n    \"fileId\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lesson-files",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lesson-files"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get files by lesson id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"lessonId\": 3,\n    \"fileId\": 5\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lesson-files/lesson/3",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lesson-files",
+            "lesson",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "detach file from lesson",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"lessonId\": 3,\n    \"fileId\": 5\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/lesson-files/lesson/3/file/5",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "lesson-files",
+            "lesson",
+            "3",
+            "file",
+            "5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create additional material",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"title material\",\n    \"link\": \"vk.com\",\n    \"lessonId\": 3,\n    \"fileId\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/additional-materials",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "additional-materials"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get add material by lesson id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"title material\",\n    \"link\": \"vk.com\",\n    \"lessonId\": 3,\n    \"fileId\": 5\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/additional-materials/lesson/3",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "additional-materials",
+            "lesson",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get material by id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"title material\",\n    \"link\": \"vk.com\",\n    \"lessonId\": 3,\n    \"fileId\": 5\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/additional-materials/1",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "additional-materials",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update add material",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"title material\",\n    \"link\": \"vk.com32\",\n    \"fileId\": 5,\n    \"lessonId\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{jhost}}/api/additional-materials/1",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "additional-materials",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete add material",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9hZG1pbiIsInN1YiI6ImV4YW1wbGVAdGVzdC5ydSIsImlhdCI6MTc3NDg1NTg3OSwiZXhwIjoxNzc0OTQyMjc5fQ.mXcO9MaM0OYcGEef0QADRrfWm3XO1jWtofqUN8h75os",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"title material\",\n    \"link\": \"vk.com32\",\n    \"fileId\": 5,\n    \"lessonId\": 3\n}"
+        },
+        "url": {
+          "raw": "{{jhost}}/api/additional-materials/2",
+          "host": [
+            "{{jhost}}"
+          ],
+          "path": [
+            "api",
+            "additional-materials",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

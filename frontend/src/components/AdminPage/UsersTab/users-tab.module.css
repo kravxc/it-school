@@ -1,0 +1,116 @@
+.subTabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 12px;
+  padding: 3px;
+  border: 1px solid #e2e8f0;
+  width: fit-content;
+}
+
+.subTab {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.subTab:hover { color: #1e293b; background: #f1f5f9; }
+.subTab.active { background: #e0e7ff; color: #2563eb; }
+
+.filterBar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tableContainer {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid #eef2f6;
+  overflow: hidden;
+}
+
+.table { width: 100%; border-collapse: collapse; }
+
+.table th {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  background: #f8fafd;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: #fafcff; }
+
+.idCell { font-weight: 600; color: #2563eb; width: 60px; }
+.titleCell { font-weight: 600; color: #0f172a; }
+
+.roleBadgeSm { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.roleAdmin { background: #fecaca; color: #991b1b; }
+.roleTeacher { background: #dbeafe; color: #1e40af; }
+.roleStudent { background: #d1fae5; color: #065f46; }
+
+.gradeBadge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.grade9 { background: #d1fae5; color: #065f46; }
+.grade11 { background: #dbeafe; color: #1e40af; }
+
+.noGradeBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.actionButtons { display: flex; gap: 8px; }
+
+.editButton, .deleteButton {
+  width: 34px; height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.editButton { background: #f0f5ff; color: #2563eb; }
+.editButton:hover { background: #2563eb; color: white; }
+
+.deleteButton { background: #fef2f2; color: #ef4444; }
+.deleteButton:hover { background: #ef4444; color: white; }
+
+.emptyState { text-align: center; padding: 60px 20px; }
+.emptyState i { font-size: 48px; color: #cbd5e1; margin-bottom: 16px; }
+.emptyState h3 { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+
+@media (max-width: 768px) {
+  .tableContainer { overflow-x: auto; }
+  .table { min-width: 500px; }
+  .subTabs { flex-direction: column; width: 100%; }
+  .subTab { text-align: center; }
+}

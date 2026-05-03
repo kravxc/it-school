@@ -1,0 +1,58 @@
+package com.example.it.school.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "files")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+public class File {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @Column(columnDefinition = "TEXT")
+    private String originalName;
+
+    private String path;
+
+    private String type;
+
+    @Column(name = "mime_type")
+    private String mimeType;
+
+    private int size;
+
+    private String extension;
+
+    @OneToMany(mappedBy = "file")
+    private List<LessonFile> lessonFiles;
+
+    @OneToMany(mappedBy = "file")
+    private List<AdditionalMaterial> additionalMaterials;
+
+    @ManyToMany(mappedBy = "files")
+    private List<Lesson> lessons = new ArrayList<>();
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+}

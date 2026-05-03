@@ -1,0 +1,22 @@
+.adminPage { min-height: 100vh; background: #f8fafd; padding: 40px 0; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.header { margin-bottom: 32px; }
+.headerInfo { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; }
+.header h1 { font-size: 36px; font-weight: 700; color: #0f172a; letter-spacing: -0.02em; }
+.roleBadge { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: #e0e7ff; color: #1e4bd2; border-radius: 40px; font-size: 14px; font-weight: 500; }
+
+.tabs { display: flex; gap: 4px; margin-bottom: 24px; background: white; border-radius: 16px; padding: 4px; border: 1px solid #e2e8f0; width: fit-content; }
+.tab { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border: none; background: transparent; border-radius: 12px; font-size: 14px; font-weight: 500; color: #64748b; cursor: pointer; transition: all 0.2s; }
+.tab:hover { color: #1e293b; background: #f1f5f9; }
+.tab.active { background: #2563eb; color: white; }
+.tab i { font-size: 14px; }
+
+.loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; }
+.loading i { font-size: 48px; color: #2563eb; margin-bottom: 20px; }
+.loading p { color: #64748b; font-size: 16px; }
+
+@media (max-width: 768px) {
+  .header h1 { font-size: 28px; }
+  .tabs { flex-direction: column; width: 100%; }
+  .tab { justify-content: center; }
+}
